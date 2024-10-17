@@ -62,6 +62,7 @@ import com.jsn.quickgrab.data.Rooms
 import com.jsn.quickgrab.data.categoryList
 import com.jsn.quickgrab.data.popularProductList
 import com.jsn.quickgrab.data.roomList
+import com.jsn.quickgrab.navigation.ProductDetails
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.LightGray_1
 import com.jsn.quickgrab.ui.theme.TextColor_1
@@ -88,7 +89,9 @@ fun HomeScreen(navHostController: NavHostController? = null) {
             SpacerHeight(20.dp)
             CategoryRow()
             SpacerHeight(20.dp)
-            PopularRow()
+            PopularRow {
+                navHostController?.navigate(ProductDetails)
+            }
             BannerRow()
             Rooms()
         }
@@ -251,7 +254,7 @@ fun CategoryEachRow(category: Category) {
 
 @ExperimentalLayoutApi
 @Composable
-fun PopularRow(onClick: () -> Unit = {}) {
+fun PopularRow(onClick: () -> Unit) {
     Column {
         CommonTitle(title = stringResource(id = R.string.popular))
         SpacerHeight()
