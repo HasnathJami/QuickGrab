@@ -1,4 +1,4 @@
-package com.jsn.quickgrab
+package com.jsn.quickgrab.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

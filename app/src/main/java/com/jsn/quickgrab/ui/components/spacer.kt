@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.components
+package com.jsn.quickgrab.ui.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.data
+package com.jsn.quickgrab.data.model
 
 import androidx.annotation.DrawableRes
 import com.jsn.quickgrab.R

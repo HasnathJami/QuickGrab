@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.screens.check_out
+package com.jsn.quickgrab.ui.screens.check_out
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,12 +46,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.jsn.quickgrab.R
-import com.jsn.quickgrab.components.SpacerHeight
-import com.jsn.quickgrab.components.SpacerWidth
-import com.jsn.quickgrab.data.ShoppingBag
-import com.jsn.quickgrab.data.shoppingList
-import com.jsn.quickgrab.screens.product_details.ProductCountButton
-import com.jsn.quickgrab.screens.product_details.RecommendedProduct
+import com.jsn.quickgrab.ui.components.SpacerHeight
+import com.jsn.quickgrab.ui.components.SpacerWidth
+import com.jsn.quickgrab.data.model.ShoppingBag
+import com.jsn.quickgrab.data.model.shoppingList
+import com.jsn.quickgrab.ui.screens.product_details.ProductCountButton
+import com.jsn.quickgrab.ui.screens.product_details.RecommendedProduct
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.LightGray_1
 import com.jsn.quickgrab.ui.theme.LineColor

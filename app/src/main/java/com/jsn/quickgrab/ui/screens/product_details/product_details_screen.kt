@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.screens.product_details
+package com.jsn.quickgrab.ui.screens.product_details
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -52,11 +52,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.jsn.quickgrab.R
-import com.jsn.quickgrab.components.SpacerHeight
-import com.jsn.quickgrab.components.SpacerWidth
-import com.jsn.quickgrab.data.popularProductList
+import com.jsn.quickgrab.ui.components.SpacerHeight
+import com.jsn.quickgrab.ui.components.SpacerWidth
+import com.jsn.quickgrab.data.model.popularProductList
 import com.jsn.quickgrab.navigation.Checkout
-import com.jsn.quickgrab.screens.home.PopularEachRow
+import com.jsn.quickgrab.ui.screens.home.PopularEachRow
 import com.jsn.quickgrab.ui.theme.Background_1
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.GrayColor

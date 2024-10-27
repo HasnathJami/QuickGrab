@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.screens.home
+package com.jsn.quickgrab.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -54,14 +54,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.jsn.quickgrab.R
-import com.jsn.quickgrab.components.SpacerHeight
-import com.jsn.quickgrab.components.SpacerWidth
-import com.jsn.quickgrab.data.Category
-import com.jsn.quickgrab.data.PopularProducts
-import com.jsn.quickgrab.data.Rooms
-import com.jsn.quickgrab.data.categoryList
-import com.jsn.quickgrab.data.popularProductList
-import com.jsn.quickgrab.data.roomList
+import com.jsn.quickgrab.ui.components.SpacerHeight
+import com.jsn.quickgrab.ui.components.SpacerWidth
+import com.jsn.quickgrab.data.model.Category
+import com.jsn.quickgrab.data.model.PopularProducts
+import com.jsn.quickgrab.data.model.Rooms
+import com.jsn.quickgrab.data.model.categoryList
+import com.jsn.quickgrab.data.model.popularProductList
+import com.jsn.quickgrab.data.model.roomList
 import com.jsn.quickgrab.navigation.ProductDetails
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.LightGray_1
