@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -9,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.jsn.quickgrab"
-        minSdk 21
+        minSdk 23
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -35,6 +38,8 @@ android {
     }
     buildFeatures {
         compose true
+        dataBinding true
+        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.1'
@@ -65,4 +70,48 @@ dependencies {
     debugImplementation libs.androidx.ui.test.manifest
 
     implementation libs.androidx.navigation.compose
+
+    //Viewmodels
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6"
+
+   //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.6"
+
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
+
+    //GSON
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //COROUTINE
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+
+    //ROOM
+    implementation "androidx.room:room-runtime:2.6.1"
+    annotationProcessor "androidx.room:room-compiler:2.6.1"
+
+    //Glide
+    implementation "com.github.bumptech.glide:compose:1.0.0-beta01"
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+
+    implementation("com.google.firebase:firebase-auth")
+
+    implementation("com.google.firebase:firebase-messaging")
+
+    implementation("com.google.firebase:firebase-dynamic-links")
+
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-database")
 }
