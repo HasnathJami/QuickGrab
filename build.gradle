@@ -9,3 +9,10 @@ alias(libs.plugins.android.application) apply false
     //Firebase
     id 'com.google.gms.google-services' version '4.4.2' apply false
 }
+
+ext {
+    keyStoreFile = '../keystore/quick_grab.jks'
+    aliasOfKey = 'key0'
+    passwordOfKey = 'quickgrab@123456'
+    passwordOfStore = 'quickgrab@123456'
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.

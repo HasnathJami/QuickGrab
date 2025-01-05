@@ -10,6 +10,21 @@ android {
     namespace 'com.jsn.quickgrab'
     compileSdk 34
 
+    signingConfigs {
+        release {
+            keyAlias aliasOfKey
+            keyPassword passwordOfKey
+            storeFile file(keyStoreFile)
+            storePassword passwordOfStore
+        }
+        debug {
+            keyAlias aliasOfKey
+            keyPassword passwordOfKey
+            storeFile file(keyStoreFile)
+            storePassword passwordOfStore
+        }
+    }
+
     defaultConfig {
         applicationId "com.jsn.quickgrab"
         minSdk 23
@@ -24,8 +39,15 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            signingConfigs.debug
             minifyEnabled false
+            debuggable true
+        }
+        release {
+            signingConfigs.release
+            minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
