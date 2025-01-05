@@ -34,7 +34,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
         vectorDrawables {
             useSupportLibrary true
         }
@@ -42,12 +41,12 @@ android {
 
     buildTypes {
         debug {
-            signingConfigs.debug
+            signingConfig signingConfigs.debug
             minifyEnabled false
             debuggable true
         }
         release {
-            signingConfigs.release
+            signingConfig signingConfigs.release
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
