@@ -2,6 +2,9 @@ package com.jsn.quickgrab.di.module
 
 import android.content.Context
 import com.google.firebase.BuildConfig
+import com.jsn.quickgrab.data.api.ApiService
+import com.jsn.quickgrab.di.qualifier.RetrofitWithLogging
+import com.jsn.quickgrab.di.qualifier.RetrofitWithoutLogging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,9 +24,23 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @RetrofitWithLogging
     fun providesRetrofit(@ApplicationContext context: Context): Retrofit {
         val okHttpClient =
             OkHttpClient.Builder().addInterceptor(provideLoggingInterceptor()).addInterceptor(
+                provideCommonHeadersInterceptor()
+            ).build()
+
+        return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    @RetrofitWithoutLogging
+    fun providesRetrofitWithoutLogging(@ApplicationContext context: Context): Retrofit {
+        val okHttpClient =
+            OkHttpClient.Builder().addInterceptor(
                 provideCommonHeadersInterceptor()
             ).build()
 
@@ -54,5 +71,11 @@ object NetworkModule {
                     .build()
             chain.proceed(modifiedRequest)
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiService(@RetrofitWithLogging retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }
