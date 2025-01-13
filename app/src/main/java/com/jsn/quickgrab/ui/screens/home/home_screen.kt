@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +36,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -60,18 +58,18 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.jsn.quickgrab.R
-import com.jsn.quickgrab.ui.components.SpacerHeight
-import com.jsn.quickgrab.ui.components.SpacerWidth
 import com.jsn.quickgrab.data.remote.model.Category
 import com.jsn.quickgrab.data.remote.model.PopularProducts
 import com.jsn.quickgrab.data.remote.model.Product
 import com.jsn.quickgrab.data.remote.model.Rooms
 import com.jsn.quickgrab.data.remote.model.categoryList
-import com.jsn.quickgrab.data.remote.model.popularProductList
 import com.jsn.quickgrab.data.remote.model.roomList
 import com.jsn.quickgrab.navigation.ProductDetails
+import com.jsn.quickgrab.ui.components.SpacerHeight
+import com.jsn.quickgrab.ui.components.SpacerWidth
 import com.jsn.quickgrab.ui.screens.ProductsViewModel
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.LightGray_1
@@ -83,6 +81,7 @@ fun HomeScreen(navHostController: NavHostController? = null) {
     var text by rememberSaveable {
         mutableStateOf("")
     }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -269,8 +268,7 @@ fun PopularRow(viewModel: ProductsViewModel = hiltViewModel(), onClick: () -> Un
         val products by viewModel.product.collectAsState(initial = emptyList())
 
         LaunchedEffect(Unit) {
-           viewModel.getProducts()
-           Log.d("checkProducts", products.size.toString())
+            viewModel.getProducts()
         }
         CommonTitle(title = stringResource(id = R.string.popular))
         SpacerHeight()
@@ -281,14 +279,16 @@ fun PopularRow(viewModel: ProductsViewModel = hiltViewModel(), onClick: () -> Un
 //            modifier = Modifier.fillMaxWidth(),
 //            horizontalArrangement = Arrangement.SpaceAround
 //        ) {
-            LazyRow (modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround) {
-                items(products) {
-                    PopularEachRow(data = it) {
-                        onClick()
-                    }
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            items(products) {
+                PopularEachRow(data = it) {
+                    onClick()
                 }
             }
+        }
 //            popularProductList.forEach {
 //                PopularEachRow(data = it) {
 //                    onClick()
@@ -379,13 +379,20 @@ fun PopularEachRow(
 //                    .height(149.dp)
 //            )
             AsyncImage(
+                modifier = Modifier
+                    .width(141.dp)
+                    .height(149.dp),
+                contentScale = ContentScale.FillBounds,
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(data.image)
                     .crossfade(true)
+                    // .size(141, 149)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .memoryCachePolicy(CachePolicy.ENABLED)
                     .build(),
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.ic_launcher_background),
-                error = painterResource(id = R.drawable.ic_launcher_background)
+                error = painterResource(id = R.drawable.ic_launcher_background),
             )
             Icon(
                 painter = painterResource(id = R.drawable.wishlist), contentDescription = "",
