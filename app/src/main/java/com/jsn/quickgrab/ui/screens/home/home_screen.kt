@@ -1,5 +1,6 @@
 package com.jsn.quickgrab.ui.screens.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,8 +33,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -52,17 +57,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.jsn.quickgrab.R
 import com.jsn.quickgrab.ui.components.SpacerHeight
 import com.jsn.quickgrab.ui.components.SpacerWidth
-import com.jsn.quickgrab.data.model.Category
-import com.jsn.quickgrab.data.model.PopularProducts
-import com.jsn.quickgrab.data.model.Rooms
-import com.jsn.quickgrab.data.model.categoryList
-import com.jsn.quickgrab.data.model.popularProductList
-import com.jsn.quickgrab.data.model.roomList
+import com.jsn.quickgrab.data.remote.model.Category
+import com.jsn.quickgrab.data.remote.model.PopularProducts
+import com.jsn.quickgrab.data.remote.model.Product
+import com.jsn.quickgrab.data.remote.model.Rooms
+import com.jsn.quickgrab.data.remote.model.categoryList
+import com.jsn.quickgrab.data.remote.model.popularProductList
+import com.jsn.quickgrab.data.remote.model.roomList
 import com.jsn.quickgrab.navigation.ProductDetails
+import com.jsn.quickgrab.ui.screens.ProductsViewModel
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.LightGray_1
 import com.jsn.quickgrab.ui.theme.TextColor_1
@@ -254,26 +264,43 @@ fun CategoryEachRow(category: Category) {
 
 @ExperimentalLayoutApi
 @Composable
-fun PopularRow(onClick: () -> Unit) {
+fun PopularRow(viewModel: ProductsViewModel = hiltViewModel(), onClick: () -> Unit) {
     Column {
+        val products by viewModel.product.collectAsState(initial = emptyList())
+
+        LaunchedEffect(Unit) {
+           viewModel.getProducts()
+           Log.d("checkProducts", products.size.toString())
+        }
         CommonTitle(title = stringResource(id = R.string.popular))
         SpacerHeight()
-        FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            popularProductList.forEach {
-                PopularEachRow(data = it) {
-                    onClick()
+        /* FLOWROW -> I1 I2 I3
+                      I4 I5    (as there ar not enough space on the up so it wrap the next items to the next row) //It work's like grid but not scrollable
+        */
+//        FlowRow(
+//            modifier = Modifier.fillMaxWidth(),
+//            horizontalArrangement = Arrangement.SpaceAround
+//        ) {
+            LazyRow (modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround) {
+                items(products) {
+                    PopularEachRow(data = it) {
+                        onClick()
+                    }
                 }
             }
-        }
+//            popularProductList.forEach {
+//                PopularEachRow(data = it) {
+//                    onClick()
+//                }
+//            }
+//        }
 
     }
 }
 
 @Composable
-fun PopularEachRow(
+fun PopularEachRowWithLocalData(
     data: PopularProducts,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
@@ -290,6 +317,75 @@ fun PopularEachRow(
                 modifier = Modifier
                     .width(141.dp)
                     .height(149.dp)
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.wishlist), contentDescription = "",
+                modifier = Modifier
+                    .padding(15.dp)
+                    .size(32.dp)
+                    .align(TopEnd),
+                tint = Color.Unspecified
+            )
+        }
+        SpacerHeight(5.dp)
+        ElevatedCard(
+            modifier = Modifier
+                .align(Alignment.Start)
+                .width(141.dp),
+//            shape = RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp, bottomEnd = 8.dp, bottomStart = 8.dp)
+
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 15.dp)) {
+                Text(
+                    text = data.title,
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.W400,
+                        color = LightGray_1
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = data.price,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        color = Color.Black
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun PopularEachRow(
+    data: Product,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .padding(vertical = 5.dp)
+            .clickable { onClick() },
+
+        ) {
+        Box {
+//            Image(
+//                painter = painterResource(id = data.image), contentDescription = "",
+//                modifier = Modifier
+//                    .width(141.dp)
+//                    .height(149.dp)
+//            )
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(data.image)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                placeholder = painterResource(id = R.drawable.ic_launcher_background),
+                error = painterResource(id = R.drawable.ic_launcher_background)
             )
             Icon(
                 painter = painterResource(id = R.drawable.wishlist), contentDescription = "",

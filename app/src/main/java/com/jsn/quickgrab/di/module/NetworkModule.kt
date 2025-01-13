@@ -2,7 +2,7 @@ package com.jsn.quickgrab.di.module
 
 import android.content.Context
 import com.google.firebase.BuildConfig
-import com.jsn.quickgrab.data.api.ApiService
+import com.jsn.quickgrab.data.remote.api.ApiService
 import com.jsn.quickgrab.di.qualifier.RetrofitWithLogging
 import com.jsn.quickgrab.di.qualifier.RetrofitWithoutLogging
 import dagger.Module
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class) //others are: ActivityComponent, FragmentComponent, ViewModelComponent, ServiceComponent
 object NetworkModule {
-    private const val BASE_URL = "base_url"
+    private const val BASE_URL = "https://www.example.com/"
 
     @Provides
     @Singleton

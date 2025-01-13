@@ -2,8 +2,8 @@ package com.jsn.quickgrab.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.jsn.quickgrab.data.db.AppDatabase
-import com.jsn.quickgrab.data.db.dao.ProductDao
+import com.jsn.quickgrab.data.local.local_db.AppDatabase
+import com.jsn.quickgrab.data.local.local_db.dao.ProductDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

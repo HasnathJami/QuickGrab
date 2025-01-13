@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.data.db.entity
+package com.jsn.quickgrab.data.local.local_db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

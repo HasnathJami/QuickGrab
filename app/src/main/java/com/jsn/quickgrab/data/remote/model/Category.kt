@@ -1,4 +1,4 @@
-package com.jsn.quickgrab.data.model
+package com.jsn.quickgrab.data.remote.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color

@@ -54,9 +54,10 @@ import androidx.navigation.NavHostController
 import com.jsn.quickgrab.R
 import com.jsn.quickgrab.ui.components.SpacerHeight
 import com.jsn.quickgrab.ui.components.SpacerWidth
-import com.jsn.quickgrab.data.model.popularProductList
+import com.jsn.quickgrab.data.remote.model.popularProductList
 import com.jsn.quickgrab.navigation.Checkout
 import com.jsn.quickgrab.ui.screens.home.PopularEachRow
+import com.jsn.quickgrab.ui.screens.home.PopularEachRowWithLocalData
 import com.jsn.quickgrab.ui.theme.Background_1
 import com.jsn.quickgrab.ui.theme.DarkOrange
 import com.jsn.quickgrab.ui.theme.GrayColor
@@ -356,7 +357,7 @@ fun RecommendedProduct() {
         SpacerHeight(20.dp)
         LazyRow {
             items(popularProductList) {
-                PopularEachRow(
+                PopularEachRowWithLocalData(
                     data = it, modifier = Modifier
                         .padding(end = 20.dp)
                 ) {

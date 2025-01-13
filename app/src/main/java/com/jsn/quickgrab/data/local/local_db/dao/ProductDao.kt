@@ -1,9 +1,9 @@
-package com.jsn.quickgrab.data.db.dao
+package com.jsn.quickgrab.data.local.local_db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.jsn.quickgrab.data.db.entity.ProductEntity
+import com.jsn.quickgrab.data.local.local_db.entity.ProductEntity
 
 @Dao
 interface ProductDao {

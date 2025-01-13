@@ -48,8 +48,8 @@ import androidx.navigation.NavHostController
 import com.jsn.quickgrab.R
 import com.jsn.quickgrab.ui.components.SpacerHeight
 import com.jsn.quickgrab.ui.components.SpacerWidth
-import com.jsn.quickgrab.data.model.ShoppingBag
-import com.jsn.quickgrab.data.model.shoppingList
+import com.jsn.quickgrab.data.remote.model.ShoppingBag
+import com.jsn.quickgrab.data.remote.model.shoppingList
 import com.jsn.quickgrab.ui.screens.product_details.ProductCountButton
 import com.jsn.quickgrab.ui.screens.product_details.RecommendedProduct
 import com.jsn.quickgrab.ui.theme.DarkOrange
